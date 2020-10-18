@@ -9,8 +9,7 @@ class DishDetail extends Component {
         super(props);
         this.state = {
             selectedDish: null
-        } 
-  
+        }   
         
     }
     onDishSelect(dish) {
@@ -18,9 +17,7 @@ class DishDetail extends Component {
     }
       
 
-    renderDish(dish) {
-       
-      
+    renderDish(dish) {       
       if (dish != null){
       
       const men = dish.comments.map((comm) => {
@@ -28,9 +25,11 @@ class DishDetail extends Component {
             <div >
               <Card key={comm.id}>
                 <CardBody>
-                <CardText>{comm.author}</CardText>
+                <CardTitle>"Comments"</CardTitle>
+                <CardText>{"-- "+comm.author+","+comm.date}</CardText>
+                
                 <CardText>{comm.comment}</CardText>
- 
+                
                 </CardBody>
                 
               </Card>
@@ -50,9 +49,8 @@ class DishDetail extends Component {
         
                   </CardBody>
               </Card>
-              <div className="row">
-              {men}
-          </div>
+              
+          
           </div>
           );
       }
@@ -62,21 +60,47 @@ class DishDetail extends Component {
           );
   }
 
-    render() {
-        
-      
-        
-      return (
-               
-
-                <div  className="col-12 col-md-5 m-1">
-                   
-                  {this.renderDish(this.props.dishy)}
-                </div>
-              
-          
-      );
+  renderDishComments(dish) {
+      if(dish != null){
+        const menn = dish.comments.map((comm) => {
+            return (
+              <div >
+                <div key={comm.id}>
+                  <p>{"-- "+comm.author+","+comm.date}</p>
+                  <p>{comm.comment}</p>
+              </div>
+              </div>
+            );
+        });
+        return(
+            <div>
+                <div className="row">
+             {menn}
+             </div>
+            </div>
+        );  
+      }
+      else{
+    return(
+        <div></div>
+    );  
   }
 }
+
+
+  render() {
+    return(
+            <div  className="col-12 col-md-5 m-1">
+               
+              {this.renderDish(this.props.dishy)}
+              {this.renderDishComments(this.props.dishy)}
+            </div>
+          
+      
+  );
+}
+}
+
+ 
 
 export default DishDetail;
