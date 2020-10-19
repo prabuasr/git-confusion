@@ -7,37 +7,21 @@ class DishDetail extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
-            selectedDish: null
-        }   
-        
-    }
-    onDishSelect(dish) {
-        this.setState({ selectedDish: dish});
+           
     }
       
 
     renderDish(dish) {       
       if (dish != null){
-      
-      
-
           return(
             <div  className="col-12 col-md-5 m-1">
-
               <Card>
-    
                   <CardBody>
                   <CardImg width="100%" src={dish.image} alt={dish.name} />
-
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
-            
-        
                   </CardBody>
               </Card>
-              
-          
           </div>
           );
       }
@@ -49,7 +33,7 @@ class DishDetail extends Component {
 
   renderDishComments(dish) {
       if(dish != null){
-        const menn = dish.comments.map((comm) => {
+        const comments = dish.comments.map((comm) => {
             return (
                 <div>
                 <div key={comm.id}>
@@ -64,7 +48,7 @@ class DishDetail extends Component {
             <Card>
                   <CardBody>  
                 <div className="row">
-                {menn}
+                {comments}
                 </div>
                 </CardBody>
             </Card>     
@@ -78,27 +62,14 @@ class DishDetail extends Component {
   }
 }
 
-
   render() {
     return(
-
         <div className="container">
-              <div className="row">
-                  
-        
-
-                    
+              <div className="row">       
               {this.renderDish(this.props.dishy)}
-            
-      
               {this.renderDishComments(this.props.dishy)}
               </div>
-
-
-
 </div>
-          
-    
   );
 }
 }
