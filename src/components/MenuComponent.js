@@ -58,7 +58,7 @@ class Menu extends Component {
                   {menu}
               </div>
               <div className="row">
-                <div  className="col-12 col-md-5 m-1">
+                <div>
                   
                   <DishDetail dishy={this.state.selectedDish} />
                 </div>
