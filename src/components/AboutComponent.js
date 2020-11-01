@@ -23,8 +23,6 @@ function RenderLeader({leader}){
 
 }
 
-
-
 function About(props) {
     const leaders = props.leaders.map((ldr) => {
         return (
@@ -90,7 +88,7 @@ function About(props) {
                 <div className="container">
           <div className="row">
             <Media list>
-                {leaders}
+               {leaders}
             </Media>
           </div>
         </div>
