@@ -179,6 +179,7 @@ class Contact extends Component {
                                         onBlur={this.handleBlur('telnum')}
 
                                         onChange={this.handleInputChange} />
+                                         <FormFeedback>{errors.telnum}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -191,6 +192,7 @@ class Contact extends Component {
                                         invalid={errors.email !== ''}
                                         onBlur={this.handleBlur('email')}
                                         onChange={this.handleInputChange} />
+                                        <FormFeedback>{errors.email}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
