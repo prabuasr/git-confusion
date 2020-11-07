@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Media } from 'reactstrap';
 
-
   import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import {
   Form, FormGroup, Input, Label ,Row,Col} from 'reactstrap';
 
   import { Control, LocalForm, Errors } from 'react-redux-form';
+  import { Loading } from './LoadingComponent';
 
   
 const required = (val) => val && val.length;
@@ -29,9 +29,10 @@ class CommentForm extends Component{
   }
   
   handleSubmit(values) {
-    console.log('Current State is: ' + JSON.stringify(values));
-    alert('Current State is: ' + JSON.stringify(values));
-    // event.preventDefault();
+    
+    
+
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
 }
   
 
@@ -126,8 +127,28 @@ class DishDetail extends Component {
     }
       
 
-    renderDish(dish) {       
-      if (dish != null){
+    renderDish({dish,isLoading,errMess}) {   
+      
+      if (isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+      
+     else if (dish != null){
           return(
             <div  className="col-12 col-md-5 m-1">
               <Card>
@@ -146,7 +167,8 @@ class DishDetail extends Component {
           );
   }
 
-  renderComments(comments) {
+
+  renderComments({comments, addComment, dishId}) {
       if(comments != null){
         const comment = comments.map((comm) => {
             return (
@@ -164,7 +186,7 @@ class DishDetail extends Component {
                   <CardBody>  
                 <div className="row">
                 {comment}
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
                 </div>
                 </CardBody>
             </Card>     
@@ -179,14 +201,26 @@ class DishDetail extends Component {
 }
 
   render() {
+
+    if(this.props.dish == null & this.props.isLoading){
+      return(
+        <div className="container">
+            <div className="row">            
+                <Loading />
+            </div>
+        </div>
+    );
+
+    }
+    if(this.props.dish != null){
     return(
-      
+        
         <div className="container">
         <div className="row">
             <Breadcrumb>
 
                 <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                <BreadcrumbItem active>{this.props.dish.id}</BreadcrumbItem>
             </Breadcrumb>
             <div className="col-12">
                 <h3>{this.props.dish.name}</h3>
@@ -195,11 +229,23 @@ class DishDetail extends Component {
         </div>
         <div className="row">
             
-            {this.renderDish(this.props.dish)}
+            {this.renderDish(
+              {
+             dish: this.props.dish,
+             isLoading : this.props.isLoading,
+             errMess : this.props.errMess
+  })}
             
-            {this.renderComments(this.props.comments)}
+            {this.renderComments(
+             { comments:this.props.comments,
+              addComment:this.props.addComment,
+              dishId:this.props.dish.id
+             }
+            )}
 
             
+
+      
             
         </div>
         
@@ -208,10 +254,20 @@ class DishDetail extends Component {
           
         </div>
     );
+            }
+            else{
+              return(
 
+<div>
+
+</div>
+
+              );
+            }
 
 }
 }
+
 
  
 
