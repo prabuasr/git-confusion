@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle} from 'reactstrap';
     import { Loading } from './LoadingComponent';
+    import { baseUrl } from '../shared/baseUrl';
+
 
     function RenderCard({item, isLoading, errMess}) {
 
@@ -16,9 +18,11 @@ import { Card, CardImg, CardText, CardBody,
         );
     }
     else{
+        if(item != null){
     return(
+        
         <Card>
-            <CardImg src={item.image} alt={item.name} />
+           <CardImg src={baseUrl + item.image} alt={item.name} />
             <CardBody>
             <CardTitle>{item.name}</CardTitle>
             {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
@@ -26,6 +30,11 @@ import { Card, CardImg, CardText, CardBody,
             </CardBody>
         </Card>
     );
+        }
+        else
+        return(
+            <div></div>
+        );
     }
 
 }
