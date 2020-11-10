@@ -34,7 +34,7 @@ class CommentForm extends Component{
     
     
 
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
 }
   
 
@@ -170,7 +170,7 @@ class DishDetail extends Component {
   }
 
 
-  renderComments({comments, addComment, dishId}) {
+  renderComments({comments, postComment, dishId}) {
       if(comments != null){
         const comment = comments.map((comm) => {
             return (
@@ -188,7 +188,7 @@ class DishDetail extends Component {
                   <CardBody>  
                 <div className="row">
                 {comment}
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
                 </div>
                 </CardBody>
             </Card>     
@@ -240,7 +240,7 @@ class DishDetail extends Component {
             
             {this.renderComments(
              { comments:this.props.comments,
-              addComment:this.props.addComment,
+              postComment:this.props.postComment,
               dishId:this.props.dish.id
              }
             )}
