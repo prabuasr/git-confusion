@@ -206,16 +206,17 @@ export const addFeedback = (response) => ({
     payload: response
 });
 
-export const postFeedback = (firstname, lastname, telnum, email,agree,contactType,message) => (dispatch) => {
+// export const postFeedback = (firstname, lastname, telnum, email,agree,contactType,message) => (dispatch) => {
+    export const postFeedback = (feedbk) => (dispatch) => {
 
     const newFeedback = {
-      firstname: firstname,
-      lastname: lastname,
-      telnum: telnum,
-      email: email,
-      agree: agree,
-      contactType: contactType,
-      message: message
+      firstname: feedbk.firstname,
+      lastname: feedbk.lastname,
+      telnum: feedbk.telnum,
+      email: feedbk.email,
+      agree: feedbk.agree,
+      contactType: feedbk.contactType,
+      message: feedbk.message
     };
     newFeedback.date = new Date().toISOString();
     

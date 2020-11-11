@@ -38,12 +38,21 @@ class Contact extends Component {
         
     }
 
-   
+       
 
     handleSubmit(values) {
      //   console.log('Current State is: ' + JSON.stringify(values));
      //   alert('Current State is: ' + JSON.stringify(values));
-      this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email,values.agree,values.contactType,values.message);
+      let feedbk = {
+          firstname: values.firstname,
+      lastname: values.lastname,
+      telnum: values.telnum,
+      email: values.email,
+      agree: values.agree,
+      contactType: values.contactType,
+      message: values.message,}
+      //this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email,values.agree,values.contactType,values.message);
+      this.props.postFeedback(feedbk);
 
       // console.log('Current State is: ' + resp);
      //     alert('Current State is: ' + resp);

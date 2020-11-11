@@ -2,9 +2,25 @@
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
-function RenderLeader({leader}){
+
+
+function RenderLeader({leader,isLoading,errMess}){
+    
+    if (isLoading) {
+        return(
+                <Loading />
+        );
+    }
+    else if (errMess) {
+        return(
+                <h4>{errMess}</h4>
+        );
+    }
+    else{
     
         return (
           <div  className="col-12 mt-5">
@@ -21,16 +37,32 @@ function RenderLeader({leader}){
           </div>
         );
     
-    
+        }
 
 }
 
 function About(props) {
+    
     const leaders = props.leaders.map((ldr) => {
         return (
-            <RenderLeader leader = {ldr} />
+            <TransitionGroup >
+            <CSSTransition
+              key={ldr}
+              timeout={300}
+              classNames="fade"    
+            >
+            <RenderLeader leader = {ldr}
+            isLoading = {props.leaderLoading}
+            errMess = {props.leaderErrMess}
+            />
+            
+  </CSSTransition>
+  </TransitionGroup>
+
         );
     });
+    
+
 
     return(
         <div className="container">
@@ -89,9 +121,14 @@ function About(props) {
                 <div className="col-12">    
                 <div className="container">
           <div className="row">
-            <Media list>
+                
+    
+    
+    <Media list>
+
                {leaders}
-            </Media>
+               </Media>
+               
           </div>
         </div>
                 </div>

@@ -43,7 +43,8 @@ const mapDispatchToProps = dispatch => ({
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
-  postFeedback : (firstname, lastname, telnum, email,agree,contactType,message) => dispatch(postFeedback(firstname, lastname, telnum, email,agree,contactType,message))
+ // postFeedback : (firstname, lastname, telnum, email,agree,contactType,message) => dispatch(postFeedback(firstname, lastname, telnum, email,agree,contactType,message))
+  postFeedback : (feedbk) => dispatch(postFeedback(feedbk))
 
 });
 
@@ -76,6 +77,10 @@ class Main extends Component {
               promoLoading={this.props.promotions.isLoading}
               promoErrMess={this.props.promotions.errMess}
               leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+              leaderLoading={this.props.leaders.isLoading}
+              leaderErrMess={this.props.leaders.errMess}
+
+
           />
       );
     }
@@ -104,7 +109,10 @@ class Main extends Component {
             <Switch location={this.props.location}>
               <Route path='/home' component={HomePage} />
               <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
-              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders.leaders} />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders.leaders}
+              leaderLoading={this.props.leaders.isLoading}
+              leaderErrMess={this.props.leaders.errMess}
+              />} />
 
               
 
