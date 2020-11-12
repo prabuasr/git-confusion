@@ -11,6 +11,8 @@ import {
   import { Control, LocalForm, Errors } from 'react-redux-form';
   import { Loading } from './LoadingComponent';
   import { baseUrl } from '../shared/baseUrl';
+  import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
 
   
@@ -153,6 +155,11 @@ class DishDetail extends Component {
      else if (dish != null){
           return(
             <div  className="col-12 col-md-5 m-1">
+              <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
               <Card>
                   <CardBody>
                   <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
@@ -160,6 +167,7 @@ class DishDetail extends Component {
                     <CardText>{dish.description}</CardText>
                   </CardBody>
               </Card>
+              </FadeTransform>
           </div>
           );
       }
@@ -172,16 +180,25 @@ class DishDetail extends Component {
 
   renderComments({comments, postComment, dishId}) {
       if(comments != null){
+
         const comment = comments.map((comm) => {
             return (
+              <Stagger in>
+                                <Fade in>
+
                 <div>
                 <div key={comm.id}>
                   <p>{"-- "+comm.author+","+comm.date}</p>
                   <p>{comm.comment}</p>
               </div>
               </div>
+              </Fade>
+
+              </Stagger>
+
             );
         });
+
         return(
             <div  className="col-12 col-md-5 m-1">
             <Card>

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
 
 
@@ -42,25 +44,25 @@ function RenderLeader({leader,isLoading,errMess}){
 }
 
 function About(props) {
+    const leaders = 
     
-    const leaders = props.leaders.map((ldr) => {
+
+    props.leaders.map((ldr) => {
         return (
-            <TransitionGroup >
-            <CSSTransition
-              key={ldr}
-              timeout={300}
-              classNames="fade"    
-            >
+            <Stagger in>
+            <Fade in>
             <RenderLeader leader = {ldr}
             isLoading = {props.leaderLoading}
             errMess = {props.leaderErrMess}
             />
-            
-  </CSSTransition>
-  </TransitionGroup>
-
+              </Fade>
+              </Stagger>
         );
-    });
+    })
+    
+
+    ;
+
     
 
 
